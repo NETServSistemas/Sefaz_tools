@@ -1,0 +1,32 @@
+
+import re
+from datetime import datetime
+
+arquivo = input('Digite o nome do arquivo\n')
+
+data_e_hora_atuais = datetime.now()
+data_e_hora_em_texto = data_e_hora_atuais.strftime('%d_%m_%Y-%H-%M')
+
+log = open(data_e_hora_em_texto+'.txt', 'w')
+
+
+def linha_negativa(linha,num_linha):
+    match = re.findall(r'-\d', linha)
+    if match:
+        erro = ('Valor negativo em linha %i\n%s' %(count,linha))
+        return erro
+    else:
+        return False
+
+arquivo = open(arquivo, 'r')
+count = 0
+for linha in arquivo:
+    count = count + 1
+    validaLinhaNegativa = linha_negativa(linha,count)
+    if(validaLinhaNegativa):
+        log.write(validaLinhaNegativa)
+
+
+arquivo.close()
+log.close()
+
